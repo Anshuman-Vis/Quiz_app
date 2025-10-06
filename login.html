@@ -62,10 +62,32 @@
             </p>
         </div>
     </div>
+<script>
+        // Get the form element
+        const loginForm = document.getElementById('loginForm');
 
+        // Add event listener for form submission
+        loginForm.addEventListener('submit', function(e) {
+            e.preventDefault(); // Prevent the default form submission
+
+            // Get the input values
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            // Simple validation and output (for demonstration)
+            if (username && password) {
+                alert(`Attempting login for: ${username}\n(In a real app, this would send credentials to a server)`);
+                // Clear the form fields after "submission"
+                loginForm.reset();
+            } else {
+                alert('Please enter both username/email and password.');
+            }
+        });
+</script>
 
 </body>
 </html>
+
 
 
 
