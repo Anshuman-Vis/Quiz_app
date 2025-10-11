@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>About Us - QuizMaster</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f9f9f9;
+  color: #333;
+  line-height: 1.6;
+  padding: 20px;
+}
+
+header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+header h1 {
+  font-size: 2.5rem;
+  color: #2c3e50;
+}
+
+header p {
+  font-size: 1.2rem;
+  color: #555;
+}
+
+main {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.about-section {
+  margin-bottom: 30px;
+  animation: fadeIn 1s ease-in;
+}
+
+.about-section h2 {
+  color: #34495e;
+  margin-bottom: 10px;
+}
+
+ul {
+  list-style-type: square;
+  margin-left: 20px;
+}
+
+button {
+  margin-top: 10px;
+  padding: 8px 15px;
+  background-color: #3498db;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #2980b9;
+}
+
+footer {
+  text-align: center;
+  margin-top: 50px;
+  font-size: 0.9rem;
+  color: #777;
+}
+
+.hidden {
+  display: none;
+  margin-top: 10px;
+}
+
+/* Animation */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+  </style>
+</head>
+  
+<body>
+  <header>
+    <h1>About QuizMaster</h1>
+    <p>Your ultimate destination for fun and challenging quizzes!</p>
+  </header>
+
+  <main>
+    <section class="about-section">
+      <h2>Our Mission</h2>
+      <p>
+        At QuizMaster, we believe learning should be fun. Our platform offers quizzes across a wide range of topics to help you test your knowledge, compete with friends, and expand your horizons.
+      </p>
+    </section>
+
+    <section class="about-section">
+      <h2>What We Offer</h2>
+      <ul>
+        <li>General Knowledge Quizzes</li>
+        <li>Subject-specific Challenges</li>
+        <li>Leaderboards and Rewards</li>
+        <li>Interactive Learning Experiences</li>
+      </ul>
+    </section>
+
+    <section class="about-section">
+      <h2>Meet the Team</h2>
+      <p>
+        We're a group of educators, developers, and trivia lovers who joined forces to make learning exciting.
+        <button id="toggleTeamBtn">Read More</button>
+      </p>
+      <div id="extraContent" class="hidden">
+        <p>
+          Our team consists of experienced content creators, backend engineers, and designers—all working to bring you the best quiz experience online.
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 QuizMaster. All rights reserved.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+  const toggleBtn = document.getElementById("toggleTeamBtn");
+  const extraContent = document.getElementById("extraContent");
+
+  toggleBtn.addEventListener("click", function () {
+    if (extraContent.classList.contains("hidden")) {
+      extraContent.classList.remove("hidden");
+      toggleBtn.textContent = "Show Less";
+    } else {
+      extraContent.classList.add("hidden");
+      toggleBtn.textContent = "Read More";
+    }
+  });
+});
+
+  </script>
+</html>
