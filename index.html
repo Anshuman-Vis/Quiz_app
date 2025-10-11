@@ -51,9 +51,50 @@
             </div>
         </div>
     </section>
+  
+    <!-- Main Content -->
+    <main>
+        <!-- Search and Filter -->
+        <section class="search-filter">
+            <div class="search-box">
+                <i class="fas fa-search"></i>
+                <input type="text" id="searchInput" placeholder="Search quizzes...">
+            </div>
+            <div class="filter-buttons">
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="easy">Easy</button>
+                <button class="filter-btn" data-filter="medium">Medium</button>
+                <button class="filter-btn" data-filter="hard">Hard</button>
+            </div>
+        </section>
+
+        <!-- Quiz Categories Grid -->
+        <section class="quiz-grid" id="quizGrid">
+            <!-- Cricket Quiz Card -->
+            <div class="quiz-card" data-quiz="cricket" data-difficulty="medium">
+                <div class="quiz-card-image">
+                    <img src="https://picsum.photos/seed/cricket/400/200.jpg" alt="Cricket Quiz">
+                    <div class="quiz-card-icon">
+                        <i class="fas fa-baseball-ball"></i>
+                    </div>
+                </div>
+                <div class="quiz-card-content">
+                    <h3>Cricket Quiz</h3>
+                    <p>Test your knowledge about the gentleman's game. From historic matches to current players!</p>
+                    <div class="quiz-meta">
+                        <div class="quiz-difficulty">
+                            <span class="difficulty-badge difficulty-medium">Medium</span>
+                        </div>
+                        <div class="quiz-questions">
+                            <i class="fas fa-question-circle"></i> 25 Questions
+                        </div>
+                    </div>
+                </div>
+            </div>
 
 </body>
 </html>
+
 
 
 
