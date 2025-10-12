@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuizMaster - Results</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="navbar">
+        </div>
+
+    <div class="main-content">
+        <div class="results-card">
+            <h2>Quiz Complete!</h2>
+            <h1 id="final-score">Your Score: 20 / 25</h1>
+            
+            <button onclick="window.location.href='index.html'" class="home-btn">Go Back Home</button>
+
+            <h3>Answer Review</h3>
+            <div id="answers-review">
+                <div class="review-item correct">
+                    <h4>✅ Question 1: Which country won the first Cricket World Cup?</h4>
+                    <p>Your Answer: <strong>West Indies</strong></p>
+                </div>
+                <div class="review-item incorrect">
+                    <h4>❌ Question 2: Who is known as 'The God of Cricket'?</h4>
+                    <p>Your Answer: <strong>Virat Kohli</strong></p>
+                    <p class="correct-text">Correct Answer: <strong>Sachin Tendulkar</strong></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        // Ensure the displayResults() function from the previous answer is called here
+        if (document.getElementById('final-score')) {
+            displayResults();
+        }
+    </script>
+</body>
+</html>
+</body>
+</html>

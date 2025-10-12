@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>quiz</title>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav>
+            <div class="logo">
+                <i class="fas fa-brain"></i>
+                QuizMaster
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="#quizzes">Quizzes</a></li>
+                <li><a href="#leaderboard">Leaderboard</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="login.html">Login/Signup</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div class="quiz-container">
+    <div id="quiz-header">
+        <h3 id="timer">Time Left: 15:00</h3>
+        <h3 id="question-count">Question 1 of 25</h3>
+    </div>
+
+    <div id="quiz-body">
+        <h2 id="question-text">Question goes here...</h2>
+        <div id="options-container" class="options">
+            </div>
+    </div>
+
+    <div id="quiz-footer">
+        <button id="prev-btn" disabled>Previous</button>
+        <button id="next-btn">Next</button>
+        <button id="submit-btn" class="hidden">Submit Quiz</button>
+    </div>
+</div>
+</body>
+</html>
