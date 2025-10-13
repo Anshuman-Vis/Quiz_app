@@ -63,7 +63,7 @@ nav {
     font-weight: bold;
     /* Gradient Text Effect */
     background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-    -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
     display: flex;
     align-items: center;
@@ -590,5 +590,220 @@ nav {
             .search-box {
                 width: 100%;
             }
+/*
+|--------------------------------------------------------------------------
+| QUIZMASTER UNIFIED CSS (CONTINUED)
+|--------------------------------------------------------------------------
+| Adding styles for the Quiz Page and Results Page.
+*/
 
+/* 8. Quiz Page Styles (quiz.html) */
+.quiz-container {
+    max-width: 800px;
+    margin: 120px auto 40px auto; /* Margin to clear the fixed header */
+    padding: 2rem;
+    background: var(--light-color);
+    border-radius: 20px;
+    box-shadow: var(--card-shadow);
+}
 
+#quiz-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 1rem;
+    margin-bottom: 1.5rem;
+    border-bottom: 2px solid #e2e8f0;
+    color: var(--dark-color);
+}
+
+#quiz-body h2 {
+    font-size: 1.8rem;
+    margin-bottom: 2rem;
+    color: var(--dark-color);
+}
+
+.options {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.option-item {
+    background: #f8fafc;
+    border: 2px solid #e2e8f0;
+    border-radius: 10px;
+    padding: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+}
+
+.option-item:hover {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 10px rgba(99, 102, 241, 0.1);
+}
+
+.option-item input[type="radio"] {
+    display: none;
+}
+
+.option-item input[type="radio"]:checked + label {
+    background: var(--primary-color);
+    color: white;
+    font-weight: 600;
+    border-color: var(--primary-color);
+}
+
+.option-item label {
+    flex-grow: 1;
+    padding: 0.5rem;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    color: var(--text-color);
+}
+
+.option-item input[type="radio"]:checked + label:before {
+    content: "●";
+    margin-right: 10px;
+    color: white;
+}
+
+#quiz-footer {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid #e2e8f0;
+}
+
+#quiz-footer button {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+#next-btn, #submit-btn {
+    background: var(--primary-color);
+    color: white;
+}
+
+#prev-btn {
+    background: #e2e8f0;
+    color: var(--text-color);
+}
+
+#prev-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+#next-btn:hover, #submit-btn:hover {
+    background: var(--secondary-color);
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* 9. Results Page Styles (result.html) */
+.results-card {
+    max-width: 800px;
+    margin: 120px auto 40px auto;
+    padding: 2rem;
+    background: white;
+    border-radius: 20px;
+    box-shadow: var(--card-shadow);
+    text-align: center;
+}
+
+.results-card h2 {
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+}
+
+#final-score {
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+    color: var(--dark-color);
+}
+
+.home-btn {
+    padding: 0.75rem 2rem;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-bottom: 2rem;
+}
+
+.home-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(99, 102, 241, 0.3);
+}
+
+.results-card h3 {
+    text-align: left;
+    margin-top: 2rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #e2e8f0;
+    color: var(--text-color);
+}
+
+#answers-review {
+    margin-top: 1.5rem;
+    text-align: left;
+}
+
+.review-item {
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border-radius: 10px;
+}
+
+.review-item h4 {
+    margin-bottom: 0.5rem;
+}
+
+.review-item p {
+    margin-bottom: 0.2rem;
+    color: #64748b;
+}
+
+.review-item.correct {
+    background-color: #dcfce7; /* Light Green */
+    border: 1px solid #a7f3d0;
+}
+
+.review-item.incorrect {
+    background-color: #fee2e2; /* Light Red */
+    border: 1px solid #fecaca;
+}
+
+.correct-text {
+    color: #dc2626 !important; /* Dark Red */
+    font-weight: 500;
+}
+
+@media (max-width: 768px) {
+    .quiz-container, .results-card {
+        margin: 100px 1rem 20px 1rem;
+        padding: 1.5rem;
+    }
+
+    #quiz-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+};
