@@ -3,13 +3,48 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Quiz Website - Login</title>
+  <title>QuizMaster - Login</title>
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    /* Add CSS to center the login container beautifully */
+    body {
+        /* This ensures the gradient background fills the entire view */
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+    }
+    .main-content-wrapper {
+        flex-grow: 1; /* Allows the main area to take up available space */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding-top: 100px; /* Space for the fixed header */
+        padding-bottom: 40px;
+    }
+    .login-container {
+        /* Overrides the margin-top in style.css to center it vertically */
+        margin-top: 0 !important;
+    }
+    .form-group {
+        position: relative;
+    }
+    .form-group input {
+        padding-left: 3rem; /* Make room for the icon */
+    }
+    .input-icon {
+        position: absolute;
+        left: 1rem;
+        top: 50%;
+        transform: translateY(-50%);
+        color: var(--primary-color);
+        font-size: 1.1rem;
+    }
+  </style>
 </head>
 <body>
 
- <!-- Header -->
-    <header>
+ <header>
         <nav>
             <div class="logo">
                 <i class="fas fa-brain"></i>
@@ -19,50 +54,55 @@
                 <li><a href="index.html">Home</a></li>
                 <li><a href="#quizzes">Quizzes</a></li>
                 <li><a href="#leaderboard">Leaderboard</a></li>
-                <li><a href="#about">About</a></li>
+                <li><a href="about.html">About</a></li>
                 <li><a href="login.html">Login/Signup</a></li>
             </ul>
         </nav>
     </header>
 
-
-  <!-- Login Form -->
- <div class="login-container">
-        <div class="login-header">
-            <div class="logo">
-                <i class="fas fa-brain"></i>
-                QuizMaster
-            </div>
-            <h2>Welcome Back!</h2>
-            <p>Sign in to continue testing your knowledge.</p>
-        </div>
-
-        <form id="loginForm">
-            <div class="form-group">
-                <i class="input-icon fas fa-user"></i>
-                <input type="text" id="username" placeholder="Username or Email" required>
+    <div class="main-content-wrapper">
+        <div class="login-container">
+            <div class="login-header">
+                <div class="logo">
+                    <i class="fas fa-brain"></i>
+                    QuizMaster
+                </div>
+                <h2>Welcome Back!</h2>
+                <p>Sign in to continue testing your knowledge.</p>
             </div>
 
-            <div class="form-group">
-                <i class="input-icon fas fa-lock"></i>
-                <input type="password" id="password" placeholder="Password" required>
+            <form id="loginForm">
+                <div class="form-group">
+                    <i class="input-icon fas fa-user"></i>
+                    <input type="text" id="username" placeholder="Username or Email" required>
+                </div>
+
+                <div class="form-group">
+                    <i class="input-icon fas fa-lock"></i>
+                    <input type="password" id="password" placeholder="Password" required>
+                </div>
+
+                <button type="submit" class="login-btn">
+                    Log In <i class="fas fa-sign-in-alt"></i>
+                </button>
+            </form>
+
+            <div class="login-footer">
+                <p>
+                    <a href="#">Forgot Password?</a>
+                </p>
+                <p style="margin-top: 10px;">
+                    Don't have an account? <a href="#">Sign Up</a>
+                </p>
             </div>
-
-            <button type="submit" class="login-btn">
-                Log In <i class="fas fa-sign-in-alt"></i>
-            </button>
-        </form>
-
-        <div class="login-footer">
-            <p>
-                <a href="#">Forgot Password?</a>
-            </p>
-            <p style="margin-top: 10px;">
-                Don't have an account? <a href="#">Sign Up</a>
-            </p>
         </div>
     </div>
-<script>
+    
+    <footer>
+        <p>&copy; 2024 QuizMaster. All rights reserved. | Made with <i class="fas fa-heart" style="color: #ec4899;"></i> for quiz lovers</p>
+    </footer>
+
+    <script>
         // Get the form element
         const loginForm = document.getElementById('loginForm');
 
@@ -83,12 +123,6 @@
                 alert('Please enter both username/email and password.');
             }
         });
-</script>
-
+    </script>
 </body>
 </html>
-
-
-
-
-
