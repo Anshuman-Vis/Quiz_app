@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>quiz</title>
+    <title>QuizMaster - Take the Quiz</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Header -->
     <header>
         <nav>
             <div class="logo">
@@ -23,27 +23,33 @@
             </ul>
         </nav>
     </header>
+    
     <div class="quiz-container">
-    <div id="quiz-header">
-        <h3 id="timer">Time Left: 15:00</h3>
-        <h3 id="question-count">Question 1 of 25</h3>
-    </div>
+        <h1 id="quizTitle" style="text-align: center; color: var(--primary-color); margin-bottom: 2rem;">Quiz Loading...</h1>
 
-    <div id="quiz-body">
-        <h2 id="question-text">Question goes here...</h2>
-        <div id="options-container" class="options">
-            </div>
-    </div>
+        <div id="quiz-header">
+            <h3 id="timer">Time Left: 15:00</h3>
+            <h3 id="question-count">Question 1 of 25</h3>
+        </div>
 
-    <div id="quiz-footer">
-        <button id="prev-btn" disabled>Previous</button>
-        <button id="next-btn">Next</button>
-        <button id="submit-btn" class="hidden">Submit Quiz</button>
+        <div id="quiz-body">
+            <h2 id="question-text">Question goes here...</h2>
+            
+            <div id="options-container" class="options">
+                </div>
+        </div>
+
+        <div id="quiz-footer">
+            <button id="prev-btn" disabled>Previous</button>
+            <button id="next-btn">Next</button>
+            <button id="submit-btn" class="hidden">Submit Quiz</button>
+        </div>
     </div>
-</div>
-<script src="script.js"></script>
+    
+    <footer>
+        <p>&copy; 2024 QuizMaster. All rights reserved. | Made with <i class="fas fa-heart" style="color: #ec4899;"></i> for quiz lovers</p>
+    </footer>
+
+    <script src="script.js"></script>
 </body>
-
 </html>
-
-
