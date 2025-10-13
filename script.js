@@ -1,5 +1,3 @@
-
-
 // Call this function when the results page loads
 // window.onload = () => {
 //     if (document.getElementById('results-container')) {
@@ -24,7 +22,7 @@ const quizData = {
         title: "Picture Quiz",
         description: "Identify famous landmarks, celebrities, and objects from their pictures. A visual treat for your brain!",
         difficulty: "Easy",
-        questions: 20,
+        questions: 3, // Changed to 3 for demo purposes
         time: "10 minutes",
         category: "Visual"
     },
@@ -32,7 +30,7 @@ const quizData = {
         title: "Sports Quiz",
         description: "Challenge yourself with questions from various sports including football, basketball, tennis, Olympics, and more!",
         difficulty: "Hard",
-        questions: 30,
+        questions: 3, // Changed to 3 for demo purposes
         time: "20 minutes",
         category: "Sports"
     },
@@ -81,6 +79,44 @@ const cricketQuizQuestions = [
     },
 ];
 
+// Actual questions for the Picture Quiz (New Data)
+const pictureQuizQuestions = [
+    {
+        question: "Which famous landmark is visible on the one-dollar bill?",
+        options: ["Lincoln Memorial", "White House", "Statue of Liberty", "Washington Monument"],
+        answer: "Washington Monument"
+    },
+    {
+        question: "What color is the 'M' in the classic McDonald's logo?",
+        options: ["Red", "Green", "Yellow", "Orange"],
+        answer: "Yellow"
+    },
+    {
+        question: "Identify this city by its famous tower: Eiffel Tower.",
+        options: ["Rome", "London", "Paris", "Berlin"],
+        answer: "Paris"
+    },
+];
+
+// Actual questions for the Sports Quiz (New Data)
+const sportsQuizQuestions = [
+    {
+        question: "Which sport uses terms like 'pitcher' and 'home run'?",
+        options: ["Cricket", "Baseball", "Softball", "Rugby"],
+        answer: "Baseball"
+    },
+    {
+        question: "In what year did the modern Olympic Games begin?",
+        options: ["1896", "1900", "1924", "1888"],
+        answer: "1896"
+    },
+    {
+        question: "How many players are on a soccer (football) team on the field?",
+        options: ["9", "10", "11", "12"],
+        answer: "11"
+    },
+];
+
 // --- GLOBAL QUIZ STATE VARIABLES (Used for quiz.html) ---
 let currentQuizData = [];   // Holds the question array for the active quiz
 let currentQuestionIndex = 0;
@@ -91,6 +127,7 @@ let currentSelectedQuizKey = '';
 // --- HOME PAGE LOGIC (Modal and Filtering) ---
 
 // Get DOM elements
+// Note: These selectors will only work on index.html
 const quizCards = document.querySelectorAll('.quiz-card');
 const modal = document.getElementById('quizModal');
 const searchInput = document.getElementById('searchInput');
@@ -117,12 +154,12 @@ function showQuizModal(quizType) {
     document.getElementById('modalQuestions').textContent = quiz.questions;
     document.getElementById('modalTime').textContent = quiz.time;
     document.getElementById('modalCategory').textContent = quiz.category;
-    modal.style.display = 'block';
+    if(modal) modal.style.display = 'block';
 }
 
 // Close modal (used the existing function name)
 function closeModal() {
-    modal.style.display = 'none';
+    if(modal) modal.style.display = 'none';
     currentSelectedQuizKey = ''; // Clear selection
 }
 
@@ -143,16 +180,19 @@ window.addEventListener('click', function(event) {
     }
 });
 
-// --- Quiz Filtering/Search Logic (Left as is) ---
-searchInput.addEventListener('input', filterQuizzes);
+// --- Quiz Filtering/Search Logic ---
+if (searchInput && filterButtons.length > 0) {
+    searchInput.addEventListener('input', filterQuizzes);
 
-filterButtons.forEach(button => {
-    button.addEventListener('click', function() {
-        filterButtons.forEach(btn => btn.classList.remove('active'));
-        this.classList.add('active');
-        filterQuizzes();
+    filterButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            filterButtons.forEach(btn => btn.classList.remove('active'));
+            this.classList.add('active');
+            filterQuizzes();
+        });
     });
-});
+}
+
 
 function filterQuizzes() {
     const searchTerm = searchInput.value.toLowerCase();
@@ -177,6 +217,22 @@ function filterQuizzes() {
 
 // --- QUIZ PAGE LOGIC (Functions to run on quiz.html) ---
 
+// Helper function to select the correct question data
+function getQuizQuestions(quizKey) {
+    switch (quizKey) {
+        case 'cricket':
+            return cricketQuizQuestions;
+        case 'picture':
+            return pictureQuizQuestions;
+        case 'sports':
+            return sportsQuizQuestions;
+        // Add cases for other quizzes (science, history, movies) when data is ready
+        default:
+            return [];
+    }
+}
+
+
 // Setup the Quiz (called when quiz.html loads)
 function setupQuiz() {
     const quizKey = sessionStorage.getItem('selectedQuizKey');
@@ -187,15 +243,28 @@ function setupQuiz() {
         return;
     }
 
-    // This is where you would load the correct data set (we only have cricket for now)
-    currentQuizData = cricketQuizQuestions; // Update this logic for other quizzes
+    // Load the correct data set based on the selected quiz key
+    currentQuizData = getQuizQuestions(quizKey); 
     
+    // Safety check for empty quiz data
+    if (currentQuizData.length === 0) {
+        alert(`No questions found for the ${quizData[quizKey].title}. Returning home.`);
+        window.location.href = 'index.html';
+        return;
+    }
+
+    // Update the question count in quizData based on the actual array length
+    quizData[quizKey].questions = currentQuizData.length;
+
     // Reset state variables
     currentQuestionIndex = 0;
     userAnswers = new Array(currentQuizData.length).fill(null);
     
     // Set the title and start the quiz
-    document.getElementById('quizTitle').textContent = quizData[quizKey].title;
+    const quizTitleElement = document.getElementById('quizTitle');
+    if (quizTitleElement) {
+        quizTitleElement.textContent = quizData[quizKey].title;
+    }
     loadQuestion(currentQuestionIndex);
     startTimer(quizData[quizKey].time); 
     
@@ -207,6 +276,8 @@ function setupQuiz() {
 
 // 1. Displaying Questions
 function loadQuestion(index) {
+    if (index >= currentQuizData.length) return;
+
     const questionData = currentQuizData[index];
     document.getElementById('question-text').textContent = questionData.question;
     document.getElementById('question-count').textContent = `Question ${index + 1} of ${currentQuizData.length}`;
@@ -217,9 +288,11 @@ function loadQuestion(index) {
     questionData.options.forEach(option => {
         const optionElement = document.createElement('div');
         optionElement.className = 'option-item';
+        // Check if the user has already answered this question
+        const isChecked = userAnswers[index] === option ? 'checked' : ''; 
+
         optionElement.innerHTML = `
-            <input type="radio" id="option-${option}" name="answer" value="${option}" 
-                   ${userAnswers[index] === option ? 'checked' : ''}>
+            <input type="radio" id="option-${option}" name="answer" value="${option}" ${isChecked}>
             <label for="option-${option}">${option}</label>
         `;
         optionsContainer.appendChild(optionElement);
@@ -240,12 +313,24 @@ function loadQuestion(index) {
 // 2. Navigation Handlers
 function loadNextQuestion() {
     if (currentQuestionIndex < currentQuizData.length - 1) {
+        // Ensure the current answer is recorded before moving
+        const currentAnswerInput = document.querySelector('input[name="answer"]:checked');
+        if (currentAnswerInput) {
+            userAnswers[currentQuestionIndex] = currentAnswerInput.value;
+        }
+
         currentQuestionIndex++;
         loadQuestion(currentQuestionIndex);
     }
 }
 function loadPreviousQuestion() {
     if (currentQuestionIndex > 0) {
+        // Ensure the current answer is recorded before moving
+        const currentAnswerInput = document.querySelector('input[name="answer"]:checked');
+        if (currentAnswerInput) {
+            userAnswers[currentQuestionIndex] = currentAnswerInput.value;
+        }
+
         currentQuestionIndex--;
         loadQuestion(currentQuestionIndex);
     }
@@ -253,14 +338,23 @@ function loadPreviousQuestion() {
 
 // 3. Timer Implementation
 function startTimer(timeLimitString) {
-    const minutes = parseInt(timeLimitString.split(' ')[0]);
+    const timeRegex = /(\d+)\s+minutes/;
+    const match = timeLimitString.match(timeRegex);
+    let minutes = 15; // Default to 15 minutes
+    if (match) {
+        minutes = parseInt(match[1]);
+    }
+    
     let time = minutes * 60; 
     
     timerInterval = setInterval(() => {
         const min = Math.floor(time / 60);
         const sec = time % 60;
-        document.getElementById('timer').textContent = 
+        const timerElement = document.getElementById('timer');
+        if (timerElement) {
+            timerElement.textContent = 
             `Time Left: ${String(min).padStart(2, '0')}:${String(sec).padStart(2, '0')}`;
+        }
 
         if (time <= 0) {
             clearInterval(timerInterval);
@@ -274,6 +368,12 @@ function startTimer(timeLimitString) {
 // 4. Submission and Scoring Logic
 function submitQuiz() {
     clearInterval(timerInterval); 
+
+    // Final check to record the last question's answer
+    const currentAnswerInput = document.querySelector('input[name="answer"]:checked');
+    if (currentAnswerInput) {
+        userAnswers[currentQuestionIndex] = currentAnswerInput.value;
+    }
 
     let score = 0;
     const detailedResults = [];
@@ -301,17 +401,23 @@ function submitQuiz() {
     sessionStorage.removeItem('selectedQuizKey'); 
 
     // Navigate to the results page
-    window.location.href = 'results.html'; 
+    window.location.href = 'result.html'; // Changed to 'result.html' as per your filename
 }
 
-// --- RESULTS PAGE LOGIC (for results.html) ---
+// --- RESULTS PAGE LOGIC (for result.html) ---
 
 function displayResults() {
     const finalScore = sessionStorage.getItem('finalScore');
     const totalQuestions = sessionStorage.getItem('totalQuestions');
     const detailedResults = JSON.parse(sessionStorage.getItem('detailedResults'));
 
-    if (!finalScore || !detailedResults) return; 
+    if (!finalScore || !detailedResults) {
+        const reviewContainer = document.getElementById('answers-review');
+         if (reviewContainer) {
+             reviewContainer.innerHTML = '<p>No quiz results found. Please take a quiz first.</p>';
+         }
+        return; 
+    }
 
     // Check if the required elements exist before trying to update them
     const scoreElement = document.getElementById('final-score');
@@ -321,18 +427,20 @@ function displayResults() {
 
     const reviewContainer = document.getElementById('answers-review');
     if (reviewContainer) {
+        reviewContainer.innerHTML = ''; // Clear 'Loading review...'
+
         detailedResults.forEach((result, index) => {
             const resultItem = document.createElement('div');
             resultItem.className = 'review-item';
             resultItem.classList.add(result.isCorrect ? 'correct' : 'incorrect');
 
             const statusIcon = result.isCorrect ? '✅' : '❌';
+            const userAnswerText = result.userAnswer || 'Not Answered';
             
             resultItem.innerHTML = `
                 <h4>${statusIcon} Question ${index + 1}: ${result.question}</h4>
-                <p>Your Answer: <strong>${result.userAnswer || 'Not Answered'}</strong></p>
+                <p>Your Answer: <strong>${userAnswerText}</strong></p>
                 ${!result.isCorrect ? `<p class="correct-text">Correct Answer: <strong>${result.correctAnswer}</strong></p>` : ''}
-                <hr>
             `;
             reviewContainer.appendChild(resultItem);
         });
@@ -352,4 +460,3 @@ document.addEventListener('DOMContentLoaded', () => {
         displayResults();
     }
 });
-
